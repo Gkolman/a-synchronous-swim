@@ -25,7 +25,11 @@ describe('server responses', () => {
 
   it('should respond to a GET request for a swim command', (done) => {
 
-    console.log('direction -> ', SwimTeam.direction)
+    let {req, res} = server.mock('/', 'GET');
+    httpHandler.router(req, res);
+
+
+    // console.log('direction -> ', SwimTeam.direction)
 
     // current swim postition
     // after the get  request has been completed
