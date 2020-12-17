@@ -23,7 +23,9 @@
       // dataType: 'json',
       success: (data) => {
         // execute our random swim
-         SwimTeam.move(getRandomDirection())
+        // setInterval(SwimTeam.move(getRandomDirection()), 750)
+
+        setInterval( () => SwimTeam.move(getRandomDirection()),750 )
        // reload the page
        // window.location = window.location.href;
       },
