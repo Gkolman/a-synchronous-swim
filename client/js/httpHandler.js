@@ -5,12 +5,10 @@
   function getRandomNumberBetween(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
   }
-
   var getRandomDirection = () => {
     var directions = ['left','right','down','up']
     return directions[getRandomNumberBetween(0,3)]
   }
-
   //
   // TODO: build the swim command fetcher here
   //
@@ -32,6 +30,18 @@
       error: (error) => console.log('error -> ', error)
     });
   };
+
+
+  // call executeSwimCommand from within setInterval
+  // upon success of ajax request pass data into SwimTeam.move()
+  // move the random direction logic to the server
+  //
+
+
+
+  // create a ajax request method
+  // on ajax success call back get data
+  // data will contain
 
   executeSwimCommand()
   var getData = () => {

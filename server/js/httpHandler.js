@@ -15,17 +15,12 @@ module.exports.initialize = (queue) => {
 module.exports.router = (req, res, next = ()=>{}) => {
   // res.setHeader('Content-Type', 'text/html');
 
-  console.log('Serving request type ' + req.method + ' for url ' + req.url);
+  console.log('Serving request type ' + req.method + ' for url ' + req.url)
   if (req.method === 'GET') {
-
     console.log('get request made')
-    // console.log('response -> ', res)
-    // console.log('request -> ', req)
-    // console.log('request -> ', res)
-
-    // execute radoom direction for swim
-
   }
+  next()
+
   res.writeHead(200, headers);
   res.end();
   next(); // invoke next() at the end of a request to help with testing!
