@@ -24,42 +24,12 @@ describe('server responses', () => {
   });
 
   it('should respond to a GET request for a swim command', (done) => {
-
     let {req, res} = server.mock('/', 'GET');
     httpHandler.router(req, res);
+    expect(res._responseCode).to.equal(200);
+    expect(res._ended).to.equal(true);
+    expect(res._data.toString()).to.be.empty;
 
-
-    // console.log('direction -> ', SwimTeam.direction)
-
-    // current swim postition
-    // after the get  request has been completed
-    // check to see the swim position has changed
-
-    //
-
-
-
-    // var jqxhr = $.get( "example.php", function() {
-    //   console.log( "success" );
-    // })
-    //   .done(function(data) {
-    //     alert( 'data -> ', data);
-    //   })
-    //   .fail(function() {
-    //     console.log( "error" );
-    //   })
-
-
-
-    // create a get request
-    // find out what infomration were getting back from the server
-    // do something with that infomation
-    // execute a swim based on the information we get back?
-
-
-
-    // $.get()
-    // swim command is making an http request?
 
     // Write a test to verify the server responds with a random swim command to a GET request. Then write the functionality that implements this feature.
 

@@ -2,12 +2,39 @@
 
   const serverUrl = 'http://127.0.0.1:3000';
 
+  function getRandomNumberBetween(min,max){
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
+
+  var getRandomDirection = () => {
+    var directions = ['left','right','down','up']
+    return directions[getRandomNumberBetween(0,3)]
+  }
+
   //
   // TODO: build the swim command fetcher here
   //
+  var executeSwimCommand = () => {
+    $.ajax({
+      type: 'GET',
+      // contentType: "application/json",
+      url: serverUrl,
+      // data: JSON.stringify({key: 'hello'}),
+      // dataType: 'json',
+      success: (data) => {
+        // execute our random swim
+         SwimTeam.move(getRandomDirection())
+       // reload the page
+       // window.location = window.location.href;
+      },
+      error: (error) => console.log('error -> ', error)
+    });
+  };
+
+  executeSwimCommand()
   var getData = () => {
     fetch(serverUrl)
-    .then(data => console.log(data));
+    .then(data => console.log('data -> ', data));
     }
 
   getData();
