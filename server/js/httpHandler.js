@@ -29,15 +29,17 @@ module.exports.router = (req, res, next = ()=>{}) => {
   res.writeHead(200, headers);
 
   if (req.method === 'GET') {
+
+
+    // we can distinguish the types of GET requests by the url
+
+    console.log('request type - > ', req.method)
+    console.log('res.url -> ', req.url)
+    console.log('background image -> ', module.exports.backgroundImageFile)
     var directionInQueue = messagesQueue.dequeue()
-
-    if (directionInQueue) {
-     res.write(directionInQueue)
+    if (directionInQueue) { res.write(directionInQueue) }
   }
-
-  // console.log('get request made')
-  }
-
+  next();
   res.end();
   next(); // invoke next() at the end of a request to help with testing!
 };

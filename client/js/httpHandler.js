@@ -6,55 +6,37 @@
   //
   // TODO: build the swim command fetcher here
   //
+
   var executeSwimCommand = () => {
     $.ajax({
       type: 'GET',
-      // contentType: "application/json",
       url: serverUrl,
-      // data: JSON.stringify({key: 'hello'}),
-      // dataType: 'json',
       success: (data) => {
-        console.log('should be randome swim command - > ', data)
-        // execute our random swim
-        // setInterval(SwimTeam.move(getRandomDirection()), 750)
-        if (data) {
-        SwimTeam.move(data)
-        } else {
-          console.log('queue is empty')
-        }
-       // reload the page
-       // window.location = window.location.href;
+        if (data) { SwimTeam.move(data) } else { console.log('queue is empty') }
       },
       error: (error) => console.log('error -> ', error)
     });
   };
-
 setInterval( () => executeSwimCommand(), 4000 )
 
-  // call executeSwimCommand from within setInterval
-  // upon success of ajax request pass data into SwimTeam.move()
-  // move the random direction logic to the server
-  //
 
+  var getBackgroundImage = () => {
 
-
-  // create a ajax request method
-  // on ajax success call back get data
-  // data will contain
-
-  executeSwimCommand()
-  var getData = () => {
-    fetch(serverUrl)
-    .then(data => console.log('data -> ', data));
-    }
-
-  getData();
-
+    // make a get request to the server
+    // specify that we want a file back
+    // if we get a file back
+    // update background image
+    // if we dont get a file back
+    // respond with 404
+  }
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
   /////////////////////////////////////////////////////////////////////
+
+
+  // make a get request to the server
 
   const ajaxFileUplaod = (file) => {
     var formData = new FormData();
@@ -67,6 +49,7 @@ setInterval( () => executeSwimCommand(), 4000 )
       contentType: false,
       processData: false,
       success: (data) => {
+
         console.log('data -> ', data)
         // reload the page
         window.location = window.location.href;
