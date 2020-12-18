@@ -2,13 +2,7 @@
 
   const serverUrl = 'http://127.0.0.1:3000';
 
-  function getRandomNumberBetween(min,max){
-    return Math.floor(Math.random()*(max-min+1)+min);
-  }
-  var getRandomDirection = () => {
-    var directions = ['left','right','down','up']
-    return directions[getRandomNumberBetween(0,3)]
-  }
+
   //
   // TODO: build the swim command fetcher here
   //
@@ -20,10 +14,14 @@
       // data: JSON.stringify({key: 'hello'}),
       // dataType: 'json',
       success: (data) => {
+        console.log('should be randome swim command - > ', data)
         // execute our random swim
         // setInterval(SwimTeam.move(getRandomDirection()), 750)
-
-        setInterval( () => SwimTeam.move(getRandomDirection()),750 )
+        if (data) {
+        SwimTeam.move(data)
+        } else {
+          console.log('queue is empty')
+        }
        // reload the page
        // window.location = window.location.href;
       },
@@ -31,6 +29,7 @@
     });
   };
 
+setInterval( () => executeSwimCommand(), 4000 )
 
   // call executeSwimCommand from within setInterval
   // upon success of ajax request pass data into SwimTeam.move()
