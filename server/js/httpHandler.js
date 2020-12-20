@@ -20,26 +20,49 @@ var getRandomDirection = () => {
 }
 
 module.exports.router = (req, res, next = ()=>{}) => {
-  // res.setHeader('Content-Type', 'text/html');
 
   //console.log('Serving request type ' + req.method + ' for url ' + req.url)
 
-  next()
-
-  res.writeHead(200, headers);
+  if (req.method === 'OPTIONS') {
+      res.writeHead(200, headers);
+      res.end()
+      next()
+    }
 
   if (req.method === 'GET') {
-
-
-    // we can distinguish the types of GET requests by the url
-
-    console.log('request type - > ', req.method)
-    console.log('res.url -> ', req.url)
-    console.log('background image -> ', module.exports.backgroundImageFile)
-    var directionInQueue = messagesQueue.dequeue()
-    if (directionInQueue) { res.write(directionInQueue) }
+    if (req.url === '/') {
+      res.writeHead(200, headers);
+      var directionInQueue = messagesQueue.dequeue()
+      if (directionInQueue) { res.end(directionInQueue) }
+      res.end();
+      next();
+    } else if (req.url === '/background.jpg') {
+      fs.readFile(module.exports.backgroundImageFile, (error, data) => {
+        if (error) {
+          res.writeHead(404, headers);
+        } else {
+          res.writeHead(200, headers);
+          res.write(data, 'binary');
+        }
+        res.end()
+        next()
+      });
+    }
   }
-  next();
-  res.end();
-  next(); // invoke next() at the end of a request to help with testing!
+
+  if (req.method === 'POST' && req.url === '/background.jpg') {
+    var fileData = Buffer.alloc(0)
+    req.on('data', (chunk) => {
+      fileData = Buffer.concat([fileData, chunk])
+    })
+    req.on('end', () => {
+      fs.writeFile(module.exports.backgroundImageFile, fileData, (err) => {
+        res.writeHead( err ? 400 : 201, headers);
+        res.end();
+        next();
+      })
+
+    })
+  }
+  // invoke next() at the end of a request to help with testing!
 };
